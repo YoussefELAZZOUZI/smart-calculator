@@ -9,7 +9,7 @@ if (isset($_POST['number1']) && isset($_POST['number2'])){
         $number1 = (float) $number1Input;
         $number2 = (float) $number2Input;
         $operator = $_POST['operator'];
-        $allowedOperators = ['+', '-', '*', '/'];
+        $allowedOperators = ['+', '-', '*', '/', '%'];
 
         if (!in_array($operator, $allowedOperators, true)) {
             echo "Invalid operator";
@@ -26,6 +26,8 @@ if (isset($_POST['number1']) && isset($_POST['number2'])){
                 } else {
                     echo $number1 / $number2;
                 }
+            } elseif ($operator === '%'){
+                echo (int)$number1 % (int)$number2;
             }
         }
     }
@@ -41,6 +43,7 @@ if (isset($_POST['number1']) && isset($_POST['number2'])){
         <option value="-">-</option>
         <option value="*">*</option>
         <option value="/">/</option>
+        <option value="%">%</option>
     </select>
     <button type="submit">Calculate</button>
 </form>

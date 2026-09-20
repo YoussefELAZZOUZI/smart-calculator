@@ -1,4 +1,12 @@
+
+
+
 <?php 
+session_start();
+
+if (!isset($_SESSION['history'])) {
+    $_SESSION['history'] = [];
+}
 
 if (isset($_POST['number1']) && isset($_POST['number2'])){
     $number1Input = trim($_POST['number1']);
@@ -15,20 +23,30 @@ if (isset($_POST['number1']) && isset($_POST['number2'])){
             echo "Invalid operator";
         } else {
             if ($operator === "+"){
-                echo $number1 + $number2;
+                $result = $number1 + $number2;
             } elseif ($operator === "-"){
-                echo $number1 - $number2;
+                $result = $number1 - $number2;
             } elseif ($operator === "*"){
-                echo $number1 * $number2;
+                $result = $number1 * $number2;
             } elseif ($operator === "/"){
                 if($number2 === 0.0){
                     echo "cannot divide by zero";
+                    exit;
                 } else {
-                    echo $number1 / $number2;
+                    $result = $number1 / $number2;
                 }
             } elseif ($operator === '%'){
-                echo (int)$number1 % (int)$number2;
+                if ($number2 === 0.0) {
+                    echo "cannot module by rezo";
+                    exit;
+                } else {
+                    $result = (int)$number1 % (int)$number2;
+                }
             }
+            echo "<h2> Result : $result </h2>";
+            
+            $calculation = "$number1 $operator $number2 = $result";
+            $_SESSION['history'][] = $calculation;
         }
     }
 }
@@ -48,3 +66,17 @@ if (isset($_POST['number1']) && isset($_POST['number2'])){
     <button type="submit">Calculate</button>
     <button type="reset">Reset</button>
 </form>
+
+<?php
+
+if (!empty($_SESSION['history'])) {
+    echo "<h2>History</h2>";
+    echo "<ul>";
+
+    foreach ($_SESSION['history'] as $calculation) {
+        echo "<li>" . htmlspecialchars($calculation) . "</li>";
+    }
+
+    echo "</ul>";
+}
+?>

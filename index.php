@@ -46,4 +46,5 @@ if (isset($_POST['number1']) && isset($_POST['number2'])){
         <option value="%">%</option>
     </select>
     <button type="submit">Calculate</button>
+    <button type="reset">Reset</button>
 </form>

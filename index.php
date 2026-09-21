@@ -10,6 +10,37 @@ if (isset($_POST['clear_history'])) {
     $_SESSION['history'] = [];
 }
 
+//Percentage
+if (isset($_POST['percentage'])){
+    if(isset($_POST['number1']) &&
+    isset($_POST['number2']) &&
+    $_POST['number1'] !== '' &&
+    $_POST['number2'] !== ''){
+        $number1 = (float) $_POST['number1'];
+        $number2 = (float) $_POST['number2'];
+        $result = $number1 * $number2 / 100;
+        echo "<h2>Percentage: $result % </h2>";
+    } else {
+        echo "Both numbers are required";
+    }
+}
+// Calculator
+if (isset($_POST['calculate'])){
+    if (
+        isset($_POST['number1']) &&
+        isset($_POST['number2']) &&
+        isset($_POST['operator'])
+    ) {
+        $number1Input = trim($_POST['number1']);
+        $number2Input = trim($_POST['number2']);
+    }
+}
+
+// Clear history
+if (isset($_POST['clear_history'])) {
+    $_SESSION['history'] = [];
+}
+
 // Calculator
 if (isset($_POST['calculate'])){
     if (
@@ -99,6 +130,9 @@ if (isset($_POST['calculate'])){
 
     <button type="reset">Reset</button>
 
+    <button type="submit" name="clear_history">Clear History</button>
+
+    <button type="submit" name="percentage">Percentage</button>
     <button type="submit" name="clear_history">
         Clear History
     </button>

@@ -33,6 +33,23 @@ if (isset($_POST['calculate'])){
     ) {
         $number1Input = trim($_POST['number1']);
         $number2Input = trim($_POST['number2']);
+    }
+}
+
+// Clear history
+if (isset($_POST['clear_history'])) {
+    $_SESSION['history'] = [];
+}
+
+// Calculator
+if (isset($_POST['calculate'])){
+    if (
+        isset($_POST['number1']) &&
+        isset($_POST['number2']) &&
+        isset($_POST['operator'])
+    ) {
+        $number1Input = trim($_POST['number1']);
+        $number2Input = trim($_POST['number2']);
 
         if ($number1Input === '' || $number2Input === '') {
             echo "Both numbers are required";
@@ -116,6 +133,9 @@ if (isset($_POST['calculate'])){
     <button type="submit" name="clear_history">Clear History</button>
 
     <button type="submit" name="percentage">Percentage</button>
+    <button type="submit" name="clear_history">
+        Clear History
+    </button>
 
 </form>
 
